@@ -71,3 +71,25 @@ func TestRouterForNonExistentRoute(t *testing.T) {
 		t.Errorf("Response should be %s, got %s", expected, respString)
 	}
 }
+
+func TestStaticFileServer(t *testing.T) {
+	r := newRouter()
+	mockServer := httptest.NewServer(r)
+	resp, err := http.Get(mockServer.URL + "/assets/index.html")
+
+	// In case there is an error in forming the request, we fail and stop the test
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		t.Errorf("Status should be ok, got %d", resp.StatusCode)
+	}
+
+	contentType := resp.Header.Get("Content-Type")
+	expectedContectType := "text/html; charset=utf-8"
+
+	if expectedContectType != contentType {
+		t.Errorf("Wrong content type, expected %s but got %s", expectedContectType, contentType)
+	}
+}
