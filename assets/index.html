@@ -1,8 +1,31 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
+<meta charset="UTF-8"> 
 <html>
     <head>
     </head>
     <body>
+        <script src="https://code.jquery.com/jquery-1.8.0.min.js"></script>
         test
+        <script>
+            $(document).ready(function(){
+                $.ajax({
+                    type: "GET",
+                    dataType: 'jsonp',   //you may use jsonp for cross origin request
+                    url: 'http://quickstats.nass.usda.gov/api/get_param_values/?key=E000FB19-6DE9-396B-A7DF-EEEDC5BC5813&param=sector_desc&callback=JsonPAlert',
+                    success: function(data){
+                        console.log('shit');
+                    },
+                    error: function(){
+                        console.log('fucko');
+                    },
+                    crossDomain: true,
+                    jsonp: "json_callback",
+                })
+            })
+
+            function JsonPAlert(jsonp){
+                alert(jsonp);
+            }
+        </script>
     </body>
 </html>
