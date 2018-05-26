@@ -7,8 +7,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-
-	"./models"
+	"github.com/patatoa/GoWeb/models"
 )
 
 func main() {
